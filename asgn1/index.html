@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Assignment 1 - Painting</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    canvas {
+      border: 1px solid black;
+      background: black;
+    }
+    .controls {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body onload="main()">
+  <h2>WebGL Paint</h2>
+
+  <canvas id="webgl" width="400" height="400">
+    Please use a browser that supports canvas.
+  </canvas>
+
+  <div class="controls">
+    <button id="pointButton">Squares</button>
+    <button id="triButton">Triangles</button>
+    <button id="circleButton">Circles</button>
+    <button id="clearButton">Clear Canvas</button>
+    <button id="pictureButton">Draw My Picture</button>
+  </div>
+
+  <div class="controls">
+    Red <input type="range" id="redSlide" min="0" max="100" value="100">
+    Green <input type="range" id="greenSlide" min="0" max="100" value="100">
+    Blue <input type="range" id="blueSlide" min="0" max="100" value="100">
+  </div>
+
+  <div class="controls">
+    Size <input type="range" id="sizeSlide" min="5" max="40" value="10">
+    Segments <input type="range" id="segmentSlide" min="3" max="30" value="10">
+  </div>
+
+  <script src="lib/webgl-utils.js"></script>
+  <script src="lib/webgl-debug.js"></script>
+  <script src="lib/cuon-utils.js"></script>
+
+  <script src="Point.js"></script>
+  <script src="Triangle.js"></script>
+  <script src="Circle.js"></script>
+  <script src="coloredPoints.js"></script>
+</body>
+</html>
