@@ -1,6 +1,7 @@
 # WebGL Paint (Assignment 1)
 
 This is a simple WebGL paint program where users can draw shapes on a canvas.
+https://begonia-jy.github.io/CSE-160/asgn1/index.html
 
 ## Features
 - Draw squares, triangles, and circles

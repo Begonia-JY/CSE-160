@@ -184,6 +184,7 @@ function drawTriangle(vertices) {
   gl.drawArrays(gl.TRIANGLES, 0, n);
 }
 
+// AI-assisted
 function drawMyPicture() {
   gl.clear(gl.COLOR_BUFFER_BIT);
 
