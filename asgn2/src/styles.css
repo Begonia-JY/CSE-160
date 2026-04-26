@@ -1,0 +1,26 @@
+body {
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  gap: 20px;
+  font-family: Arial, sans-serif;
+  background: #eef6ff;
+}
+
+canvas {
+  border: 1px solid black;
+  background: #bde7ff;
+}
+
+#controls {
+  width: 230px;
+}
+
+input {
+  width: 200px;
+}
+
+button {
+  margin-right: 8px;
+  margin-bottom: 10px;
+}
