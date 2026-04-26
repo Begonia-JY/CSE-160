@@ -324,7 +324,6 @@ let leftDownClawDraw = new Matrix4(leftDownClaw);
 leftDownClawDraw.scale(0.20, 0.06, 0.06);
 
 drawCube(leftDownClawDraw, claw);
-  //。。。。。。。
   m = new Matrix4(bodyBase);
   m.translate(0.18, -0.42, 0);
   m.rotate(-115, 0, 0, 1);
