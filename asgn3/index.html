@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sloth Maze World</title>
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(#dff4ff, #f7fff0);
+      font-family: Arial, sans-serif;
+      color: #24301f;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 16px 0 4px;
+      font-size: 28px;
+    }
+
+    #subtitle {
+      margin: 0 0 12px;
+      color: #4f7040;
+    }
+
+    canvas {
+      border: 6px solid #7a5a36;
+      border-radius: 14px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+      background: #9edcff;
+    }
+
+    #panel {
+      width: 600px;
+      margin: 12px auto;
+      padding: 14px;
+      background: rgba(255,255,255,0.85);
+      border: 2px solid #9bbf73;
+      border-radius: 14px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+    }
+
+    #controls {
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    #game {
+      font-weight: bold;
+      color: #6a3f1f;
+      margin-top: 8px;
+    }
+
+    #fps {
+      color: #2f5f24;
+      font-weight: bold;
+    }
+
+    .flower {
+      font-size: 22px;
+      margin: 0 6px;
+    }
+
+    #gameArea {
+  position: relative;
+  width: 600px;
+  height: 600px;
+  margin: 0 auto;
+}
+
+#crosshair {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  transform: translate(-50%, -50%);
+  border: 2px solid rgba(255, 255, 255, 0.75);
+  border-radius: 50%;
+  box-shadow: 0 0 4px rgba(0,0,0,0.45);
+  pointer-events: none;
+}
+
+  </style>
+</head>
+
+<body>
+  <h1><span class="flower">🌸</span> Sloth Maze World <span class="flower">🌿</span></h1>
+  <p id="subtitle">Find the hidden Sloth Temple inside the maze</p>
+  <p id="game">Goal: Find the Sloth Temple.</p>
+  <div id="gameArea">
+    <canvas id="webgl" width="600" height="600"></canvas>
+    <div id="crosshair"></div>
+  </div>
+
+  <div id="panel">
+
+    <div id="controls">
+      <h2>🌿 Sloth Maze Adventure 🌿</h2>
+
+      <p>
+        Explore the maze and find the hidden Sloth Temple deep in the jungle.
+      </p>
+
+      <p>
+        🧭 <b>Dig around!</b> You can destroy walls and build your own path.
+      </p>
+
+      <p>
+        ⛏️ <b>Left Click</b> = Add Block <br>
+        🪓 <b>Right Click</b> = Delete Block
+      </p>
+
+      <p>
+        🎮 <b>Controls:</b><br>
+        W / A / S / D = Move<br>
+        Mouse = Look Around<br>
+        Q / E = Rotate Camera<br>
+        ESC = Unlock Mouse
+      </p>
+    </div>
+    
+    <p id="fps">
+      FPS:
+    </p>
+
+    <hr style="margin-top:12px; opacity:0.4;">
+
+    <p style="
+      font-size:13px;
+      color:#4d5a42;
+      margin-top:8px;
+    ">
+      Crystal Li|jli864@ucsc.edu
+    </p>
+
+  </div>
+
+  <script type="module" src="./src/World.js"></script>
+</body>
+</html>
