@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sloth Maze World Lighting</title>
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(#dff4ff, #f7fff0);
+      font-family: Arial, sans-serif;
+      color: #24301f;
+    }
+    h1 { text-align: center; margin: 18px 0 4px; font-size: 32px; }
+    #subtitle { text-align: center; color: #4f7040; margin-bottom: 18px; }
+    #mainLayout { display: flex; justify-content: center; align-items: flex-start; gap: 24px; padding: 10px 20px 30px; }
+    #gameArea { position: relative; width: 600px; height: 600px; flex-shrink: 0; }
+    canvas { border: 6px solid #7a5a36; border-radius: 14px; box-shadow: 0 8px 25px rgba(0,0,0,0.25); background: #9edcff; }
+    #crosshair { position: absolute; left: 50%; top: 50%; width: 18px; height: 18px; transform: translate(-50%, -50%); border: 2px solid rgba(255,255,255,0.75); border-radius: 50%; box-shadow: 0 0 4px rgba(0,0,0,0.45); pointer-events: none; }
+    #panel { width: 420px; padding: 18px; background: rgba(255,255,255,0.88); border: 2px solid #9bbf73; border-radius: 16px; box-shadow: 0 4px 14px rgba(0,0,0,0.12); }
+    #controls { font-size: 16px; line-height: 1.7; }
+    #controls h2, #lightingControls h3 { text-align: center; margin-top: 0; }
+    #lightingControls { margin-top: 20px; padding: 14px; border-radius: 12px; background: rgba(230,248,255,0.8); border: 1px solid #9bbf73; }
+    button { margin: 5px; padding: 8px 12px; border-radius: 8px; border: 1px solid #7a9b5a; background: #f7fff0; cursor: pointer; font-size: 14px; }
+    button:hover { background: #e6f7d7; }
+    input[type="range"] { width: 220px; margin: 4px 0 12px; }
+    label { font-weight: bold; font-size: 14px; }
+    #game { text-align: center; font-weight: bold; color: #6a3f1f; margin-bottom: 12px; }
+    #fps { color: #2f5f24; font-weight: bold; margin-top: 14px; text-align: center; }
+    .flower { font-size: 22px; margin: 0 6px; }
+    #footer { font-size: 13px; color: #4d5a42; text-align: center; margin-top: 16px; }
+  </style>
+</head>
+<body>
+  <h1><span class="flower">🌸</span> Sloth Maze World Lighting <span class="flower">🌿</span></h1>
+  <p id="subtitle">Assignment 4: Phong Lighting, Normal Visualization, Point Light, Spotlight, OBJ</p>
+
+  <div id="mainLayout">
+    <div id="gameArea">
+      <canvas id="webgl" width="600" height="600"></canvas>
+      <div id="crosshair"></div>
+    </div>
+
+    <div id="panel">
+      <p id="game">Goal: Find the Sloth Temple.</p>
+
+      <div id="controls">
+        <h2>🌿 Sloth Maze Adventure 🌿</h2>
+        <p>Explore the maze and view the Sloth Temple with warm Phong lighting.</p>
+        <p>⛏️ <b>Left Click</b> = Add Block<br>🪓 <b>Right Click</b> = Delete Block</p>
+        <p>🎮 <b>Controls:</b><br>W / A / S / D = Move<br>Mouse = Look Around<br>Q / E = Rotate Camera<br>ESC = Unlock Mouse</p>
+      </div>
+
+      <div id="lightingControls">
+        <h3>💡 Lighting Controls</h3>
+        <button id="lightButton">Toggle Point Light</button>
+        <button id="normalButton">Toggle Normals</button>
+        <button id="spotButton">Toggle Spotlight</button>
+        <br><br>
+
+        <label>Point Light X</label><br>
+        <input type="range" id="lightX" min="-10" max="20" step="0.1" value="7">
+        <br>
+        <label>Point Light Y</label><br>
+        <input type="range" id="lightY" min="0" max="15" step="0.1" value="8">
+        <br>
+        <label>Point Light Z</label><br>
+        <input type="range" id="lightZ" min="-10" max="20" step="0.1" value="6">
+      </div>
+
+      <p id="fps">FPS:</p>
+      <div id="footer">Crystal Li | jli864@ucsc.edu</div>
+    </div>
+  </div>
+
+  <script type="module" src="./src/World.js"></script>
+</body>
+</html>
