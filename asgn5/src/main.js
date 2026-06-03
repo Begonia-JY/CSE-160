@@ -3,6 +3,8 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
+const basePath = import.meta.env.BASE_URL;
+
 const app = document.querySelector('#app');
 app.innerHTML = '<canvas id="forest-scene" aria-label="Ancient forest house scene"></canvas>';
 
@@ -51,16 +53,16 @@ function loadRepeatingTexture(paths, repeatX, repeatY) {
 }
 
 const grassTexture = loadRepeatingTexture([
-  '/textures/Skybox/textures/Grass004_1K-JPG_Color.jpg',
-  '/textures/Grass004_1K-JPG_Color.jpg',
+  `${basePath}textures/Skybox/textures/Grass004_1K-JPG_Color.jpg`,
+  `${basePath}textures/Grass004_1K-JPG_Color.jpg`,
 ], 50, 50);
 const barkTexture = loadRepeatingTexture([
-  '/textures/Skybox/textures/Bark014_1K-JPG_Color.jpg',
-  '/textures/Bark014_1K-JPG_Color.jpg',
+  `${basePath}textures/Skybox/textures/Bark014_1K-JPG_Color.jpg`,
+  `${basePath}textures/Bark014_1K-JPG_Color.jpg`,
 ], 2, 4);
 const rockTexture = loadRepeatingTexture([
-  '/textures/Skybox/textures/Rock064_1K-JPG_Color.jpg',
-  '/textures/Rock064_1K-JPG_Color.jpg',
+  `${basePath}textures/Skybox/textures/Rock064_1K-JPG_Color.jpg`,
+  `${basePath}textures/Rock064_1K-JPG_Color.jpg`,
 ], 2.4, 1.4);
 
 const groundMaterial = new THREE.MeshStandardMaterial({ map: grassTexture, color: 0x789062, roughness: 0.95 });
@@ -144,11 +146,11 @@ ground.receiveShadow = true;
 scene.add(ground);
 const skyTextureLoader = new THREE.TextureLoader();
 
-const sunnySkyTexture = skyTextureLoader.load('/textures/Skybox/sunny.png');
+const sunnySkyTexture = skyTextureLoader.load(`${basePath}textures/Skybox/sunny.png`);
 sunnySkyTexture.colorSpace = THREE.SRGBColorSpace;
 sunnySkyTexture.needsUpdate = true;
 
-const rainySkyTexture = skyTextureLoader.load('/textures/Skybox/rainy.png');
+const rainySkyTexture = skyTextureLoader.load(`${basePath}textures/Skybox/rainy.png`);
 rainySkyTexture.colorSpace = THREE.SRGBColorSpace;
 rainySkyTexture.needsUpdate = true;
 
@@ -769,7 +771,7 @@ document.querySelector('#sunny-button')?.addEventListener('click', () => setWeat
 document.querySelector('#rainy-button')?.addEventListener('click', () => setWeather('rainy'));
 applyLightingMode(lightingSlider?.value ?? 0);
 const loader = new GLTFLoader();
-loader.load('/Models/abandoned_house.glb', (gltf) => {
+loader.load(`${basePath}Models/abandoned_house.glb`, (gltf) => {
   const house = gltf.scene;
   enableShadows(house);
 
