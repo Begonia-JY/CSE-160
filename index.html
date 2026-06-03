@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/CSE-160/asgn5/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Here Winds Meet - CSE160 Assignment 5</title>
+    <style>
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+        background: #0d1510;
+      }
+
+      #canvas-container,
+      #app {
+        position: fixed;
+        inset: 0;
+        width: 100vw;
+        height: 100vh;
+      }
+
+      #controls-panel,
+      #lighting-panel,
+      #assignment-footer,
+      #loading-screen {
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      #controls-panel {
+        position: fixed;
+        top: 18px;
+        left: 18px;
+        z-index: 5;
+        max-width: min(310px, calc(100vw - 36px));
+        padding: 15px 17px;
+        border: 1px solid rgba(221, 236, 201, 0.24);
+        border-radius: 8px;
+        color: rgba(242, 249, 231, 0.94);
+        background: rgba(16, 28, 18, 0.62);
+        box-shadow: 0 18px 55px rgba(0, 0, 0, 0.32);
+        backdrop-filter: blur(10px);
+        text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
+        pointer-events: none;
+      }
+
+      #controls-panel h1 {
+        margin: 0 0 10px;
+        color: #ffe2a8;
+        font-size: 16px;
+        line-height: 1.1;
+        letter-spacing: 0;
+      }
+
+      #controls-panel ul {
+        margin: 0;
+        padding-left: 18px;
+        font-size: 13px;
+        line-height: 1.55;
+      }
+
+      #lighting-panel {
+        position: fixed;
+        left: 50%;
+        bottom: 20px;
+        z-index: 6;
+        width: min(720px, calc(100vw - 36px));
+        padding: 13px 16px 12px;
+        border: 1px solid rgba(221, 236, 201, 0.24);
+        border-radius: 8px;
+        color: rgba(242, 249, 231, 0.94);
+        background: rgba(16, 28, 18, 0.66);
+        box-shadow: 0 18px 55px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        transform: translateX(-50%);
+      }
+
+      #lighting-panel .lighting-row {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 18px;
+        align-items: end;
+      }
+
+      #lighting-panel .slider-wrap {
+        min-width: 0;
+      }
+
+      #lighting-panel .lighting-header {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 8px;
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      #lighting-mode-label {
+        color: #ffe2a8;
+      }
+
+      #lighting-slider {
+        width: 100%;
+        accent-color: #ffd48e;
+        cursor: pointer;
+      }
+
+      #weather-buttons {
+        display: flex;
+        gap: 8px;
+        padding-bottom: 18px;
+      }
+
+      #weather-buttons button {
+        border: 1px solid rgba(255, 226, 168, 0.35);
+        border-radius: 8px;
+        color: rgba(242, 249, 231, 0.9);
+        background: rgba(28, 39, 24, 0.72);
+        padding: 8px 12px;
+        cursor: pointer;
+        font-weight: 700;
+      }
+
+      #weather-buttons button.is-active {
+        color: #24190d;
+        background: #ffd48e;
+        border-color: #ffd48e;
+      }
+
+      .lighting-labels {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        margin-top: 4px;
+        color: rgba(242, 249, 231, 0.78);
+        font-size: 11px;
+        text-align: center;
+      }
+
+      #assignment-footer {
+        position: fixed;
+        right: 18px;
+        bottom: 14px;
+        z-index: 5;
+        color: rgba(244, 250, 232, 0.84);
+        font-size: 12px;
+        text-shadow: 0 2px 12px rgba(0, 0, 0, 0.65);
+        pointer-events: none;
+      }
+
+      #loading-screen {
+        position: fixed;
+        inset: 0;
+        z-index: 10;
+        display: grid;
+        place-items: center;
+        color: #f6f2df;
+        background: #0d1510;
+        transition: opacity 700ms ease, visibility 700ms ease;
+      }
+
+      #loading-screen.is-hidden {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      #loading-screen .loading-text {
+        font-size: clamp(24px, 4vw, 42px);
+        font-weight: 750;
+        letter-spacing: 0;
+        text-shadow: 0 8px 30px rgba(0, 0, 0, 0.42);
+      }
+
+      @media (max-width: 700px) {
+        #controls-panel {
+          top: 12px;
+          left: 12px;
+          max-width: calc(100vw - 24px);
+          padding: 12px 13px;
+        }
+
+        #lighting-panel {
+          bottom: 32px;
+          width: calc(100vw - 24px);
+          padding: 11px 12px;
+        }
+
+        #lighting-panel .lighting-row {
+          grid-template-columns: 1fr;
+          gap: 8px;
+        }
+
+        #weather-buttons {
+          padding-bottom: 0;
+          justify-content: center;
+        }
+
+        #assignment-footer {
+          right: 12px;
+          bottom: 8px;
+        }
+      }
+    </style>
+    <script type="module" crossorigin src="/CSE-160/asgn5/assets/index-qbL0UNvl.js"></script>
+    <link rel="stylesheet" crossorigin href="/CSE-160/asgn5/assets/index-IcdPfIRY.css">
+  </head>
+  <body>
+    <div id="loading-screen" role="status" aria-live="polite" aria-label="Loading">
+      <div class="loading-text">Loading...</div>
+    </div>
+
+    <aside id="controls-panel" aria-label="Controls guide">
+      <h1>Controls:</h1>
+      <ul>
+        <li>Mouse Drag: Rotate camera</li>
+        <li>Scroll: Zoom</li>
+        <li>Right Drag: Pan</li>
+        <li>Slider: Change lighting time</li>
+        <li>Buttons: Sunny / Rainy weather</li>
+      </ul>
+    </aside>
+
+    <main id="canvas-container" aria-label="Fullscreen renderer canvas container">
+      <div id="app"></div>
+    </main>
+
+        <section id="lighting-panel" aria-label="Lighting and weather controls">
+      <div class="lighting-row">
+        <div class="slider-wrap">
+          <div class="lighting-header">
+            <span>Lighting Time</span>
+            <span id="lighting-mode-label">Dawn</span>
+          </div>
+          <input id="lighting-slider" type="range" min="0" max="3" step="1" value="0" aria-label="Lighting time" />
+          <div class="lighting-labels" aria-hidden="true">
+            <span>Dawn</span>
+            <span>Noon</span>
+            <span>Sunset</span>
+            <span>Night</span>
+          </div>
+        </div>
+        <div id="weather-buttons" aria-label="Weather controls">
+          <button id="sunny-button" class="is-active" type="button">Sunny</button>
+          <button id="rainy-button" type="button">Rainy</button>
+        </div>
+      </div>
+    </section>
+
+    <footer id="assignment-footer">Crystal Li | jli864@ucsc.edu</footer>
+
+    <script>
+      const loadingScreen = document.querySelector('#loading-screen');
+      const hideLoadingScreen = () => {
+        if (!loadingScreen || loadingScreen.classList.contains('is-hidden')) return;
+        loadingScreen.classList.add('is-hidden');
+        window.setTimeout(() => loadingScreen.remove(), 800);
+      };
+
+      window.addEventListener('ancient-forest-house-loaded', hideLoadingScreen, { once: true });
+
+      const houseModelLoaded = (entry) => entry.name.includes('/Models/abandoned_house.glb');
+      const alreadyLoaded = performance.getEntriesByType('resource').some(houseModelLoaded);
+
+      if (alreadyLoaded) {
+        window.setTimeout(hideLoadingScreen, 300);
+      } else {
+        const observer = new PerformanceObserver((list) => {
+          if (list.getEntries().some(houseModelLoaded)) {
+            observer.disconnect();
+            window.setTimeout(hideLoadingScreen, 300);
+          }
+        });
+        observer.observe({ type: 'resource', buffered: true });
+      }
+    </script>
+  </body>
+</html>
